@@ -3,7 +3,7 @@
 PROJECT_ID = "expensetracking-309512"
 SUBSCRIPTION_ID = "firstSub"
 TOPIC_ID = "expenseTopic"
-PATH_TO_CRED = "key/ETcredentials.json"
+PATH_TO_CRED = "key/ETkey.json"
 PATH_TO_TOKEN = "key/token.json"
 SCOPES = [
     'https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/pubsub',

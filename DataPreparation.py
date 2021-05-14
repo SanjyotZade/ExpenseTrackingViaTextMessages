@@ -15,7 +15,7 @@ class DataPreparation:
 
     def __init__(self, connect_db=True, creds=None):
         if connect_db:
-            self.sql_obj = Sql(db_name=DATABASE_NAME, password="Tinku786$")
+            self.sql_obj = Sql(db_name=DATABASE_NAME, password="qwerty")
         self.gsheet_obj = GsheetIO(creds=creds)
 
     @staticmethod
