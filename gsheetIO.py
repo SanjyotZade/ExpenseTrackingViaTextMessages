@@ -12,9 +12,6 @@ class GsheetIO:
 
     def __init__(self, creds=None):
 
-        if creds is None:
-            creds = self.generate_credential_token(path_to_cred="./key/ETcredentials.json", path_to_token="./key/token.json")
-
         # authorize the clientsheet
         client = gspread.authorize(creds)
 

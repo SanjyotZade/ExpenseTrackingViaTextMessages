@@ -1,22 +1,22 @@
 # This file has all the variable initializations
-
-PROJECT_ID = "expensetracking-309512"
-SUBSCRIPTION_ID = "firstSub"
+EMAIL = "epochs.ai@sanjyot.info"
+PROJECT_ID = "expensetra"
+SUBSCRIPTION_ID = "expenseTopic-sub"
 TOPIC_ID = "expenseTopic"
-PATH_TO_CRED = "key/ETkey.json"
+PATH_TO_CRED = "/home/sj-ai-lsb/Documents/keys/ExpenseTrackingViaTextMessages/expenseTrackingServiceKey.json"
 PATH_TO_TOKEN = "key/token.json"
 SCOPES = [
     'https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/pubsub',
     'https://www.googleapis.com/auth/spreadsheets', "https://www.googleapis.com/auth/drive"
 ]
-PATH_TO_SAVE_WATCH_RESPONSE = "data/watch.json"
+PATH_TO_SAVE_WATCH_RESPONSE = "/home/sj-ai-lsb/Documents/keys/ExpenseTrackingViaTextMessages/watch.json"
 EMAILS_TO_PROCESS_AT_UPDATE = 10
 CONSTANT_TEXT = "[SMSForwarder] New message from "
 CONSTANT_PUNTUATIONS = "\n"
 
+# data base variables
 DATABASE_TABLE_NAME = "training_data"
 DATABASE_NAME = "ExpenseTracking"
-
 DELETE_DUPLICATE_QUERY = "DELETE FROM "+DATABASE_TABLE_NAME+" WHERE row_num IN(select row_num from(SELECT row_num, message, messageTime, phoneNumber, messageType, ROW_NUMBER() OVER (PARTITION BY message, messageTime, phoneNumber, messageType ORDER BY message desc) AS id FROM "+DATABASE_TABLE_NAME+")AS temp_table WHERE id>1);"
 LAST_ROW_QUERY = "select row_num from "+DATABASE_TABLE_NAME+" order by row_num desc limit 1"
 

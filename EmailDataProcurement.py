@@ -25,13 +25,13 @@ class EmailDataProcurement:
 	"""
 	def __init__(self):
 		# loading credentials
-		self.creds = self.generate_credential_token()
+		self.creds = self.load_credentatials(PATH_TO_CRED)
 
 		# connecting to gmail API object
 		self.gmail = build('gmail', 'v1', credentials=self.creds)
 
 		# data processing object
-		self.data_pro_obj = DataPreparation(creds=self.creds)
+		self.data_pro_obj = DataPreparation(creds=self.creds, connect_db=False)
 
 		self.EMAILS_TO_PROCESS_AT_UPDATE = 50
 
@@ -73,7 +73,8 @@ class EmailDataProcurement:
 	def load_credentatials(path_to_key):
 		if os.path.exists(path_to_key):
 			credentials = service_account.Credentials.from_service_account_file(path_to_key, scopes=SCOPES)
-			return credentials
+			delegated_credentials = credentials.with_subject(EMAIL)
+			return delegated_credentials
 		else:
 			print("Service account credentials path incorrect")
 			return None
@@ -155,8 +156,9 @@ class EmailDataProcurement:
 			print("\nThere are updates in the inbox..")
 			if email_num:
 				recent_email_information = self.get_emails(number_of_emails=email_num)
-				updated_rows = self.data_pro_obj.update_to_database(email_data=recent_email_information)
-				self.data_pro_obj.update_expense_excel(updated_rows)
+				print(recent_email_information)
+				# updated_rows = self.data_pro_obj.update_to_database(email_data=recent_email_information)
+				# self.data_pro_obj.update_expense_excel(updated_rows)
 				self.EMAILS_TO_PROCESS_AT_UPDATE = EMAILS_TO_PROCESS_AT_UPDATE
 				self.lock = False
 			print("\nWaiting for updates in inbox..")
@@ -270,7 +272,7 @@ class EmailDataProcurement:
 		# 	print("Error when fetching emails: {}".format(e))
 
 
-# if __name__ == "__main__":
-# 	process_obj = EmailDataProcurement()
-# 	process_obj.start_the_push_service()
-# 	print(process_obj.start_pubsub_communication())
+if __name__ == "__main__":
+	process_obj = EmailDataProcurement()
+	process_obj.start_the_push_service()
+	print(process_obj.start_pubsub_communication())
