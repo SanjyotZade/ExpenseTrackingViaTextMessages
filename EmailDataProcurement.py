@@ -5,7 +5,6 @@ import base64
 import socket
 import os.path
 from config import *
-from pprint import pprint
 from bs4 import BeautifulSoup
 from google.api_core import retry
 from google.cloud import pubsub_v1
@@ -14,7 +13,6 @@ from googleapiclient.discovery import build
 from concurrent.futures import TimeoutError
 from DataPreparation import DataPreparation
 from google.oauth2.credentials import Credentials
-from google.auth import load_credentials_from_file
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 
@@ -31,7 +29,7 @@ class EmailDataProcurement:
 		self.gmail = build('gmail', 'v1', credentials=self.creds)
 
 		# data processing object
-		self.data_pro_obj = DataPreparation(creds=self.creds, connect_db=False)
+		self.data_pro_obj = DataPreparation(creds=self.creds)
 
 		self.EMAILS_TO_PROCESS_AT_UPDATE = 50
 
@@ -156,9 +154,8 @@ class EmailDataProcurement:
 			print("\nThere are updates in the inbox..")
 			if email_num:
 				recent_email_information = self.get_emails(number_of_emails=email_num)
-				print(recent_email_information)
-				# updated_rows = self.data_pro_obj.update_to_database(email_data=recent_email_information)
-				# self.data_pro_obj.update_expense_excel(updated_rows)
+				updated_rows = self.data_pro_obj.update_to_csv(email_data=recent_email_information)
+				self.data_pro_obj.update_expense_excel(updated_rows)
 				self.EMAILS_TO_PROCESS_AT_UPDATE = EMAILS_TO_PROCESS_AT_UPDATE
 				self.lock = False
 			print("\nWaiting for updates in inbox..")

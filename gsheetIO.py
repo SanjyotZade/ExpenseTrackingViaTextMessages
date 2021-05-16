@@ -59,7 +59,7 @@ class GsheetIO:
         return len(str_list) + 1
 
     def update_expense_sheet(self, input_data):
-        col_row_start = (2,1)
+        col_row_start = (2, 1)
         # get the first sheet of the Spreadsheet
         sheet_instance = self.sheet.worksheet(WORK_BOOK_NAME)
         row_num = self.next_available_row(sheet_instance, col_row_start[0])

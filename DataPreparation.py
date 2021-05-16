@@ -1,6 +1,7 @@
 import re
 import time
 from Sql import Sql
+import pandas as pd
 from gsheetIO import GsheetIO
 from datetime import datetime
 from config import DATABASE_NAME
@@ -9,13 +10,13 @@ from config import LAST_ROW_QUERY
 from config import DATABASE_TABLE_NAME
 from config import CONSTANT_PUNTUATIONS
 from config import DELETE_DUPLICATE_QUERY
+from config import PATH_TO_ENTIRE_SMS_CSV
+from config import PATH_TO_ENTIRE_TRAS_SMS_CSV
 
 
 class DataPreparation:
 
-    def __init__(self, connect_db=True, creds=None):
-        if connect_db:
-            self.sql_obj = Sql(db_name=DATABASE_NAME, password="qwerty")
+    def __init__(self, creds=None):
         self.gsheet_obj = GsheetIO(creds=creds)
 
     @staticmethod
@@ -73,34 +74,72 @@ class DataPreparation:
             print("Email data: {}".format(email_data))
             return
 
+    def update_to_csv(self, email_data):
+        sms_data = pd.read_csv(PATH_TO_ENTIRE_SMS_CSV)
+        if email_data is not None:
+            email_data_updated = self.data_pre_processing(email_data)
+            last_rows = sms_data.shape[0]
+            row = int(sms_data.loc[last_rows-1, "row_num"])+1
+            current_email_data = []
+
+            for email_num, email_info in email_data_updated.items():
+                column_names = ['row_num', 'phoneNumber', 'messageType', 'message', 'messageTime', 'trans', 'amounts']
+                row_data = [
+                        row+1,
+                        email_info["phoneNumber"],
+                        email_info["messageType"],
+                        email_info["message"],
+                        email_info["messageTime"],
+                        str(self.find_trans_msg(email_info["message"])),
+                        str(self.extract_amounts(email_info["message"]))
+                ]
+                current_email_data.append(dict(zip(column_names, row_data)))
+                row += 1
+            sms_data = sms_data.append(current_email_data, ignore_index=True)
+            sms_data = sms_data.drop_duplicates(subset=['phoneNumber', 'messageType', 'message', 'messageTime', 'trans', 'amounts'])
+            recent_rows = sms_data.shape[0]
+            if recent_rows > last_rows:
+                print("{} data rows updated successfully".format(recent_rows-last_rows))
+                sms_data.to_csv(PATH_TO_ENTIRE_SMS_CSV, index=False)
+                return sms_data.iloc[-(recent_rows-last_rows):, ]
+            else:
+                print("SMS data already up to date in the database")
+                return
+        else:
+            print("Email data: {}".format(email_data))
+            return
+
     @staticmethod
     def covert_to_float(num):
         return round(float(num), 1)
 
     def update_expense_excel(self, updated_rows):
-        if updated_rows:
+        if updated_rows is not None:
             exp_amt = None
             update_row_processed = []
-            for row in updated_rows:
-                row = list(row)
-                trans_words = eval(row[-2])
+            updated_rows.reset_index(inplace=True)
+            for row_num, trans in enumerate(updated_rows["trans"]):
+                trans_words = eval(trans)
+
                 if trans_words:
-                    amounts = eval(row[-1])
+                    amounts = eval(updated_rows.loc[row_num, "amounts"])
                     if len(amounts) > 1:
                         for amt in amounts:
                             if not amt[1]:
                                 exp_amt = self.covert_to_float(amt[0][0])
                                 break
                     if exp_amt is None:
-                        exp_amt = self.covert_to_float(eval(row[-1])[0][0][0])
+                        exp_amt = self.covert_to_float(amounts[0][0][0])
 
                     if (("credited" in trans_words) or ("refund" in trans_words)) and ("debited" not in trans_words):
                         exp_amt *= -1
 
-                    month = datetime.strptime(row[0], '%d %b %Y %I:%M').strftime('%B')
-                    message = row[3]
-                    update_row_processed.append([month, "", "", exp_amt, exp_amt, message, row[-3]])
+                    month = datetime.strptime(updated_rows.loc[row_num, "messageTime"], '%d %b %Y %I:%M').strftime('%B')
+                    message = updated_rows.loc[row_num, "message"]
+                    row_num = str(updated_rows.loc[row_num, "row_num"])
+                    update_row_processed.append([month, "", "", exp_amt, exp_amt, message, row_num])
                     exp_amt = None
+
             if update_row_processed:
                 self.gsheet_obj.update_expense_sheet(update_row_processed)
         return
@@ -194,7 +233,7 @@ if __name__ == "__main__":
     data = {0: {'Date': 'Sat, 3 Apr 2021 09:38:02 -0700',
          'Message': 'From:Â\xa0AM-TFAROT\r\n'
                     'Pack Valid till Jun 16 2021. Remaining SMS:893.00 '
-                    'Bal:Rs.8.80.',
+                    'Bal:Rs.8.90.',
          'subject': '[SMSForwarder] New message from AM-TFAROT - 04/03 PM 10:07'},
      1: {'Date': 'Sat, 3 Apr 2021 09:37:58 -0700',
          'Message': 'From:Â\xa0+918983383349(RadhaağŸ‘»)\r\nHi',
@@ -235,8 +274,9 @@ if __name__ == "__main__":
                      'Bal:Rs.8.8 BAL INR 58 BAL',
           'subject': '[SMSForwarder] New message fro AM-TFAROT - 04/03 PM 5:23'}}
 
-    x = data_prep_obj.update_to_database(data)
+    x = data_prep_obj.update_to_csv(data)
     data_prep_obj.update_expense_excel(x)
+    print(x)
     # import pandas as pd
     # # from the CSV file
     # # path_to_csv_file = "./data/sms_backup_3032021.csv"
