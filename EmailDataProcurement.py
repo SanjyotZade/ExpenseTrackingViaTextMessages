@@ -186,6 +186,7 @@ class EmailDataProcurement:
 				streaming_pull_future.result(timeout=timeout)
 			except TimeoutError:
 				streaming_pull_future.cancel()
+                                print("Timeout error")
 			except socket.timeout:
 				streaming_pull_future.cancel()
 				print("socket timeout")
