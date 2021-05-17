@@ -9,4 +9,4 @@ echo $dt >> sms.log
 #source /Users/sanjyotzade/anaconda3/bin/activate expenseTracking
 nohup python -u run.py >> sms.log  2>&1 &
 echo $! >> sms.log
-tail -f  sms.log
+#tail -f  sms.log

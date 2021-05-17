@@ -2432,3 +2432,20 @@ Listening for messages on projects/expensetra/subscriptions/expenseTopic-sub..
 SMS data already up to date in the database
 
 Waiting for updates in inbox..
+------------------------------------------------------
+17/05/_17:58:14
+21990
+
+Gmail watch stopped..
+
+Started the watch successfully
+Watch response: {'historyId': '9031', 'expiration': '1621859299709'}
+
+Listening for messages on projects/expensetra/subscriptions/expenseTopic-sub..
+
+
+There are updates in the inbox..
+Fetching last 50 emails
+SMS data already up to date in the database
+
+Waiting for updates in inbox..
