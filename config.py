@@ -5,20 +5,20 @@ EMAIL = "epochs.ai@sanjyot.info"
 PROJECT_ID = "expensetra"
 SUBSCRIPTION_ID = "expenseTopic-sub"
 TOPIC_ID = "expenseTopic"
-PATH_TO_CRED = "/home/sj-ai-lsb/Documents/keys/ExpenseTrackingViaTextMessages/expenseTrackingServiceKey.json"
+PATH_TO_CRED = "/home/sj-jetson-1/Documents/keys/ExpenseTrackingViaTextMessages/expenseTrackingServiceKey.json"
 PATH_TO_TOKEN = "key/token.json"
 SCOPES = [
     'https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/pubsub',
     'https://www.googleapis.com/auth/spreadsheets', "https://www.googleapis.com/auth/drive"
 ]
-PATH_TO_SAVE_WATCH_RESPONSE = "/home/sj-ai-lsb/Documents/keys/ExpenseTrackingViaTextMessages/watch.json"
+PATH_TO_SAVE_WATCH_RESPONSE = "/home/sj-jetson-1/Documents/keys/ExpenseTrackingViaTextMessages/watch.json"
 EMAILS_TO_PROCESS_AT_UPDATE = 10
 CONSTANT_TEXT = "[SMSForwarder] New message from "
 CONSTANT_PUNTUATIONS = "\n"
 
 # csv variables
-PATH_TO_ENTIRE_SMS_CSV = "/home/sj-ai-lsb/Documents/data/ExpenseTrackingViaTextMessages/expenseSMSData.csv"
-PATH_TO_ENTIRE_TRAS_SMS_CSV = "/home/sj-ai-lsb/Documents/data/ExpenseTrackingViaTextMessages/expenseTrasData.csv"
+PATH_TO_ENTIRE_SMS_CSV = "/home/sj-jetson-1/Documents/data/ExpenseTrackingViaTextMessages/expenseSMSData.csv"
+PATH_TO_ENTIRE_TRAS_SMS_CSV = "/home/sj-jetson-1/Documents/data/ExpenseTrackingViaTextMessages/expenseTrasData.csv"
 
 # data base variables
 DATABASE_TABLE_NAME = "training_data"

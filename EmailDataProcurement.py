@@ -6,7 +6,7 @@ import socket
 import os.path
 from config import *
 from bs4 import BeautifulSoup
-from google.api_core import retry
+#from google.api_core import retry
 from google.cloud import pubsub_v1
 from google.oauth2 import service_account
 from googleapiclient.discovery import build

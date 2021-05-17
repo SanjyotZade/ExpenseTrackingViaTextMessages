@@ -6,7 +6,7 @@ dt=$(date '+%d/%m/_%H:%M:%S');
 echo "------------------------------------------------------" >> sms.log
 echo $dt >> sms.log
 #pkill -9 python
-source /Users/sanjyotzade/anaconda3/bin/activate expenseTracking
-nohup python -u run.py >> sms.log &
+#source /Users/sanjyotzade/anaconda3/bin/activate expenseTracking
+nohup python -u run.py >> sms.log  2>&1 &
 echo $! >> sms.log
-#tail -f  sms.log
+tail -f  sms.log

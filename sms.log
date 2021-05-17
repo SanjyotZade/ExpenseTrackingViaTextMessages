@@ -2358,3 +2358,77 @@ Waiting for 2 sec..
 SMS data already up to date in the database
 
 Waiting for updates in inbox..
+------------------------------------------------------
+17/05/_17:40:45
+20674
+
+Gmail watch stopped..
+
+Started the watch successfully
+Watch response: {'historyId': '8805', 'expiration': '1621858250669'}
+
+Listening for messages on projects/expensetra/subscriptions/expenseTopic-sub..
+
+
+There are updates in the inbox..
+Fetching last 50 emails
+SMS data already up to date in the database
+
+Waiting for updates in inbox..
+
+There are updates in the inbox..
+Fetching last 10 emails
+------------------------------------------------------
+17/05/_17:42:37
+20815
+1 data rows updated successfully
+
+Waiting for updates in inbox..
+
+Gmail watch stopped..
+
+There are updates in the inbox..
+Fetching last 10 emails
+
+Started the watch successfully
+Watch response: {'historyId': '8882', 'expiration': '1621858362894'}
+
+Listening for messages on projects/expensetra/subscriptions/expenseTopic-sub..
+
+SMS data already up to date in the database
+
+Waiting for updates in inbox..
+------------------------------------------------------
+17/05/_17:44:39
+20997
+
+Gmail watch stopped..
+
+Started the watch successfully
+Watch response: {'historyId': '8927', 'expiration': '1621858484684'}
+
+Listening for messages on projects/expensetra/subscriptions/expenseTopic-sub..
+
+
+There are updates in the inbox..
+Fetching last 50 emails
+SMS data already up to date in the database
+
+Waiting for updates in inbox..
+------------------------------------------------------
+17/05/_17:47:52
+21202
+
+Gmail watch stopped..
+
+There are updates in the inbox..
+Fetching last 10 emails
+
+Started the watch successfully
+Watch response: {'historyId': '8975', 'expiration': '1621858677538'}
+
+Listening for messages on projects/expensetra/subscriptions/expenseTopic-sub..
+
+SMS data already up to date in the database
+
+Waiting for updates in inbox..
