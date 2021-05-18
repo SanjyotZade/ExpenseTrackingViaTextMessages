@@ -1,7 +1,7 @@
 import socket
 from time import sleep
 from config import REMOTE_SERVER
-from EmailDataProcurement import EmailDataProcurement
+from emailDataProcurement import EmailDataProcurement
 
 
 def is_connected(hostname):
