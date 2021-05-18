@@ -15,6 +15,7 @@ PATH_TO_SAVE_WATCH_RESPONSE = "/home/sj-jetson-1/Documents/keys/ExpenseTrackingV
 EMAILS_TO_PROCESS_AT_UPDATE = 10
 CONSTANT_TEXT = "[SMSForwarder] New message from "
 CONSTANT_PUNTUATIONS = "\n"
+REMOTE_SERVER = "one.one.one.one"
 
 # csv variables
 PATH_TO_ENTIRE_SMS_CSV = "/home/sj-jetson-1/Documents/data/ExpenseTrackingViaTextMessages/expenseSMSData.csv"
