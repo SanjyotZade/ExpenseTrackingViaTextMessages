@@ -1,2 +1,8 @@
 # ExpenseTrackingViaTextMessages
- This repository contains the code base used to communicate with gmail api using g suite based service account. I communicate to extract email, deducecs relevant financial email, extract relevant information and update to a spreadsheet.
+ This repository contains the code base used to communicate with gmail api using G-suite based service account. 
+ This communication is used to track changes in the inbox, extract email, 
+ deduce relevant financial email(forwarded sms), extract financial data and update to a spreadsheet(for analysis).
+
+
+
+![alt text](expenseTrackingDataFlow.png)
