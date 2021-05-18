@@ -20,7 +20,8 @@ def is_connected(hostname):
 
 if __name__ == "__main__":
     while not is_connected(REMOTE_SERVER):
-        sleep(30)
+        print("Waiting for internet...")
+        sleep(60)
 
     process_obj = EmailDataProcurement()
     process_obj.start_the_push_service()
