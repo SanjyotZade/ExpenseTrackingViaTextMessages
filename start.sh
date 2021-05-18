@@ -7,6 +7,6 @@ echo "------------------------------------------------------" >> sms.log
 echo $dt >> sms.log
 #pkill -9 python
 #source /Users/sanjyotzade/anaconda3/bin/activate expenseTracking
-nohup python -u run.py >> sms.log  2>&1 &
+sudo -H -u sj-jetson-1 nohup /usr/bin/python3 -u run.py >> sms.log  2>&1 &
 echo $! >> sms.log
 #tail -f  sms.log
