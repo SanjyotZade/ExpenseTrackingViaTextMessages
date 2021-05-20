@@ -16,6 +16,7 @@ EMAILS_TO_PROCESS_AT_UPDATE = 10
 CONSTANT_TEXT = "[SMSForwarder] New message from "
 CONSTANT_PUNTUATIONS = "\n"
 REMOTE_SERVER = "one.one.one.one"
+MAX_NET_WAIT = 5
 
 # csv variables
 PATH_TO_ENTIRE_SMS_CSV = "/home/sj-jetson-1/Documents/data/ExpenseTrackingViaTextMessages/expenseSMSData.csv"
