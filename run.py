@@ -1,6 +1,7 @@
 import os
 import socket
 from time import sleep
+from subprocess import call
 from config import MAX_NET_WAIT
 from config import REMOTE_SERVER
 from emailDataProcurement import EmailDataProcurement
@@ -21,23 +22,21 @@ def is_connected(hostname):
 
 
 def restart_network():
-    print("\nRestarting internet..")
-    os.system("nmcli networking off")
-    sleep(5)
-    os.system("nmcli networking on")
-    sleep(2)
+    print("Restarting internet..")
+    call(["nmcli", "networking", "off"])
+    #os.system("nmcli  off")
+    sleep(10)
+    call(["nmcli", "networking", "on"])
+    #os.system("nmcli networking on")
+    sleep(10)
     print("Done\n")
 
 
 if __name__ == "__main__":
-    attempts = 0
     while not is_connected(REMOTE_SERVER):
         print("Waiting for internet...")
-        sleep(60)
-        attempts += 1
-        if attempts == MAX_NET_WAIT:
-            restart_network()
-            attempts=0
+        sleep(40)
+        restart_network()
 
     process_obj = EmailDataProcurement()
     process_obj.start_the_push_service()

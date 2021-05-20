@@ -1,0 +1,9 @@
+data/**
+/**data
+
+.DS_Store
+.idea
+key
+__pycache__/
+
+config.py
