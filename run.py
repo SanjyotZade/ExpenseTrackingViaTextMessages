@@ -37,6 +37,7 @@ if __name__ == "__main__":
         attempts += 1
         if attempts == MAX_NET_WAIT:
             restart_network()
+            attempts=0
 
     process_obj = EmailDataProcurement()
     process_obj.start_the_push_service()
