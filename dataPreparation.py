@@ -123,13 +123,16 @@ class DataPreparation:
 
                 if trans_words:
                     amounts = eval(updated_rows.loc[row_num, "amounts"])
-                    if len(amounts) > 1:
-                        for amt in amounts:
-                            if not amt[1]:
-                                exp_amt = self.covert_to_float(amt[0][0])
-                                break
-                    if exp_amt is None:
-                        exp_amt = self.covert_to_float(amounts[0][0][0])
+                    if amounts:
+                        if len(amounts) > 1:
+                           for amt in amounts:
+                               if not amt[1]:
+                                  exp_amt = self.covert_to_float(amt[0][0])
+                                  break
+                        if exp_amt is None:
+                           exp_amt = self.covert_to_float(amounts[0][0][0])
+                    else:
+                        exp_amt = self.covert_to_float(0)
 
                     if (("credited" in trans_words) or ("refund" in trans_words)) and ("debited" not in trans_words):
                         exp_amt *= -1
