@@ -34,13 +34,6 @@ def restart_network():
 
 
 if __name__ == "__main__":
-    
-    try:
-        if sys.argv[1]:
-           print("Waiting for internet start")
-           sleep(60*4)
-    except:
-        pass
 
     while not is_connected(REMOTE_SERVER):
         print("Waiting for internet...")
