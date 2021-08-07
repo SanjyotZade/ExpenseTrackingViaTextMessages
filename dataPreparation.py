@@ -32,7 +32,7 @@ class DataPreparation:
             print(date_time)
             print("###################")
             print()
-            date_time = datetime.strptime(date_time+" "+str(now.year), '%m/%d, %p %I:%M %Y').strftime('%d %b %Y %I:%M')
+            date_time = datetime.strptime(date_time+" "+str(now.year), '%m/%d, %I %p %Y').strftime('%d %b %Y %I:%M')
             email_data_updated[email_num] = {
                 'row_num': None,
                 'phoneNumber': sender_name,
