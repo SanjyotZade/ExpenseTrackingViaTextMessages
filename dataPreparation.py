@@ -30,6 +30,8 @@ class DataPreparation:
             message = " ".join((email_info["Message"].split(CONSTANT_PUNTUATIONS))[1:])
             now = datetime.now()
             print(date_time)
+            print("###################")
+            print()
             date_time = datetime.strptime(date_time+" "+str(now.year), '%m/%d, %p %I:%M %Y').strftime('%d %b %Y %I:%M')
             email_data_updated[email_num] = {
                 'row_num': None,
