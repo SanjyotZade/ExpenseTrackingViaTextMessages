@@ -29,8 +29,12 @@ class DataPreparation:
             email_info["Message"] = email_info["Message"].replace("\r", "")
             message = " ".join((email_info["Message"].split(CONSTANT_PUNTUATIONS))[1:])
             now = datetime.now()
-
-            date_time = datetime.strptime(date_time+" "+str(now.year), '%m/%d, %I:%M %p %Y').strftime('%d %b %Y %I:%M')
+            try:
+                # after update
+                date_time = datetime.strptime(date_time+" "+str(now.year), '%m/%d, %I:%M %p %Y').strftime('%d %b %Y %I:%M')
+            except:
+                # before update, temp, to be remove in a few days
+                date_time = datetime.strptime(date_time+" "+str(now.year), '%m/%d %p %I:%M %Y').strftime('%d %b %Y %I:%M')
             email_data_updated[email_num] = {
                 'row_num': None,
                 'phoneNumber': sender_name,
