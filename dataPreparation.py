@@ -31,6 +31,7 @@ class DataPreparation:
             now = datetime.now()
             print(date_time)
             print("###################")
+            print(date_time+" "+str(now.year), '%m/%d, %I %p %Y')
             print()
             date_time = datetime.strptime(date_time+" "+str(now.year), '%m/%d, %I %p %Y').strftime('%d %b %Y %I:%M')
             email_data_updated[email_num] = {
