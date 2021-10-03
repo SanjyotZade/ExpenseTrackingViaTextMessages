@@ -2,7 +2,7 @@
 /etc/rc.local 
 
 Note: 
-1. This file is used to execute bash scripts on start-up
+1. This file is used to execute bash scripts on start-up.
 
 # Added a cron job
 cron -e <to create a job and edit in nano>
