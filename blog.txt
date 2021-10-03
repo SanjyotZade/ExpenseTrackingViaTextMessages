@@ -1,0 +1,12 @@
+# Removed startup command from
+/etc/rc.local 
+
+Note: 
+1. This file is used to execute bash scripts on start-up
+
+# Added a cron job
+cron -e <to create a job and edit in nano>
+
+Note: 
+1. used "bash <path/to/bashscript>" in cron job
+2. Used "chmod +x <path/to/bashscript>" for execution permission
