@@ -18,6 +18,7 @@ class DataPreparation:
 
     def __init__(self, creds=None):
         self.gsheet_obj = GsheetIO(creds=creds)
+        pass
 
     @staticmethod
     def data_pre_processing(email_data):
@@ -29,7 +30,8 @@ class DataPreparation:
             subject_info = subject_info.replace(CONSTANT_TEXT, "")
             sender_name, date_time = subject_info.split(" - ")
             email_info["Message"] = email_info["Message"].replace("\r", "")
-            message = " ".join((email_info["Message"].split(CONSTANT_PUNTUATIONS))[1:])
+            # message = " ".join((email_info["Message"].split(CONSTANT_PUNTUATIONS))[1:]) # was there for earlier bug in messsage sender
+            message = email_info["Message"]
             now = datetime.now()
             try:
                 # after update
@@ -243,54 +245,131 @@ class DataPreparation:
 
 
 if __name__ == "__main__":
-    data_prep_obj = DataPreparation()
-    data = {0: {'Date': 'Sat, 3 Apr 2021 09:38:02 -0700',
+    data2 = {0: {'Date': 'Tue, 30 Nov 2021 19:12:50 +0000',
+         'Message': 'Hi',
+         'subject': '[SMSForwarder] New message from +918983383349 - 01/12, 12:42 '
+                    'am'},
+        1: {'Date': 'Tue, 30 Nov 2021 19:02:00 +0000',
+         'Message': 'Dear customer, transaction number TT0335482412 for Rs455.00 '
+                    'by SBI\r\n'
+                    'Debit Card X4147 at 50000392 on 30Nov21 at 22:56:07. If not '
+                    'done\r\n'
+                    'forward this SMS to 9223008333 or call 18001111109/9449112211 '
+                    'to block\r\n'
+                    'card',
+         'subject': '[SMSForwarder] New message from +918983383349 - 01/12, 12:31 '
+                    'am'},
+        2: {'Date': 'Tue, 30 Nov 2021 19:00:14 +0000',
+         'Message': 'Pack Valid till Mar 08 2022. Remaining SMS:1746.00 '
+                    'Bal:Rs.15.12.',
+         'subject': '[SMSForwarder] New message from AM-AIRTEL - 01/12, 12:30 am'},
+        3: {'Date': 'Tue, 30 Nov 2021 18:49:13 +0000',
+         'Message': 'Dear customer, transaction number TT0335482412 for Rs455.00 '
+                    'by SBI\r\n'
+                    'Debit Card X4147 at 50000392 on 30Nov21 at 22:56:07. If not '
+                    'done\r\n'
+                    'forward this SMS to 9223008333 or call 18001111109/9449112211 '
+                    'to block\r\n'
+                    'card',
+         'subject': '[SMSForwarder] New message from +918983383349 - 01/12, 12:18 '
+                    'am'},
+        4: {'Date': 'Tue, 30 Nov 2021 17:27:05 +0000',
+         'Message': 'Hi, Your Prepaid recharge of Rs. 455.0 is success against '
+                    'Order Id\r\n'
+                    '6871499497375072256. Please keep the Order ID for future '
+                    'reference.',
+         'subject': '[SMSForwarder] New message from AZ-AIRINF - 30/11, 10:56 pm'},
+        5: {'Date': 'Tue, 30 Nov 2021 17:26:59 +0000',
+         'Message': 'Hi, Payment of Rs. 455.0 via amazonpay is still being '
+                    'processed. Order\r\n'
+                    'Id: 6871499497375072256. Please wait for 2 Hrs. for your '
+                    'payment\r\n'
+                    'status update. Please keep the Order ID for future reference.',
+         'subject': '[SMSForwarder] New message from AZ-AIRINF - 30/11, 10:56 pm'},
+        6: {'Date': 'Tue, 30 Nov 2021 17:26:46 +0000',
+         'Message': 'Enjoy TRULY unlimited Local, STD & Roaming calls on any '
+                    'network, 6GB\r\n'
+                    'data & 900 SMS. Pack valid for 84 days.Also get FREE Hello '
+                    'Tunes on\r\n'
+                    'Wynk Music App with your unlimited pack. Claim here: '
+                    'i.wynk.in/bun',
+         'subject': '[SMSForwarder] New message from Airtel - 30/11, 10:56 pm'},
+        7: {'Date': 'Tue, 30 Nov 2021 17:26:41 +0000',
+         'Message': 'Recharge of Rs INR455.0000 is successful for your Airtel '
+                    'Mobile on\r\n'
+                    '30-11-2021 22:56, Transaction ID 654863074.Check your '
+                    'balance,\r\n'
+                    'validity, tariff and best recharges on Airtel Thanks App -\r\n'
+                    'u.airtel.in/App',
+         'subject': '[SMSForwarder] New message from Airtel - 30/11, 10:56 pm'},
+        8: {'Date': 'Tue, 30 Nov 2021 17:26:34 +0000',
+         'Message': 'Dear customer, transaction number TT0335482412 for Rs455.00 '
+                    'by SBI\r\n'
+                    'Debit Card X4147 at 50000392 on 30Nov21 at 22:56:07. If not '
+                    'done\r\n'
+                    'forward this SMS to 9223008333 or call 18001111109/9449112211 '
+                    'to block\r\n'
+                    'card',
+         'subject': '[SMSForwarder] New message from BZ-ATMSBI - 30/11, 10:56 pm'},
+        9: {'Date': 'Tue, 30 Nov 2021 17:26:10 +0000',
+         'Message': 'OTP for online purchase of Rs. 455.00 at AIRTEL thru State '
+                    'Bank Debit\r\n'
+                    'Card 5596*****47 is 965741. Do not share this with anyone.',
+         'subject': '[SMSForwarder] New message from AX-SBIOTP - 30/11, 10:56 pm'},
+        10: {'Date': 'Tue, 30 Nov 2021 17:23:05 +0000',
+          'Message': '4225 is the OTP for your Airtel Thanks app login. Valid for '
+                     '15\r\n'
+                     'mins. Please do not share this with anyone N9BWuqauU1y',
+          'subject': '[SMSForwarder] New message from AZ-AIRINF - 30/11, 10:52 pm'}
+            }
+
+    data1 = {0: {'Date': 'Sat, 3 Apr 2021 09:38:02 -0700',
          'Message': 'From:Â\xa0AM-TFAROT\r\n'
                     'Pack Valid till Jun 16 2021. Remaining SMS:893.00 '
                     'Bal:Rs.8.90.',
          'subject': '[SMSForwarder] New message from AM-TFAROT - 04/03 PM 10:07'},
-     1: {'Date': 'Sat, 3 Apr 2021 09:37:58 -0700',
+        1: {'Date': 'Sat, 3 Apr 2021 09:37:58 -0700',
          'Message': 'From:Â\xa0+918983383349(RadhaağŸ‘»)\r\nHi',
          'subject': '[SMSForwarder] New message from +918983383349(Radhaa👻) - '
                     '04/03 PM 10:07'},
-     4: {'Date': 'Sat, 3 Apr 2021 07:33:35 -0700',
+        4: {'Date': 'Sat, 3 Apr 2021 07:33:35 -0700',
          'Message': 'From:Â\xa0JM-620016\r\n'
                     'Plan expired! Recharge Now using Google Pay app for Jio no. '
                     '7400108949 with Rs.149 Plan & enjoy unlimited voice and data. '
                     'Click www.jio.com/r/puwzGxD1c',
          'subject': '[SMSForwarder] New message from JM-620016 - 04/03 PM 8:03'},
-     9: {'Date': 'Sat, 3 Apr 2021 04:59:25 -0700',
+        9: {'Date': 'Sat, 3 Apr 2021 04:59:25 -0700',
          'Message': 'From:Â\xa0+918983383349(RadhaağŸ‘»)\r\n'
                     'Could not see earlier message',
          'subject': '[SMSForwarder] New message from +918983383349(Radhaa👻) - '
                     '04/03 PM 5:29'},
-     10: {'Date': 'Sat, 3 Apr 2021 04:58:49 -0700',
+        10: {'Date': 'Sat, 3 Apr 2021 04:58:49 -0700',
           'Message': 'From:Â\xa0AM-TFAROT\r\n'
                      'Pack Valid till Jun 16 2021. Remaining SMS:895.00 '
                      'Bal:Rs.8.80.',
           'subject': '[SMSForwarder] New message from AM-TFAROT - 04/03 PM 5:28'},
-     11: {'Date': 'Sat, 3 Apr 2021 04:58:46 -0700',
+        11: {'Date': 'Sat, 3 Apr 2021 04:58:46 -0700',
           'Message': 'From:Â\xa0+918983383349(RadhaağŸ‘»)\r\nğŸ˜˜',
           'subject': '[SMSForwarder] New message from +918983383349(Radhaa👻) - '
                      '04/03 PM 5:28'},
-     12: {'Date': 'Sat, 3 Apr 2021 04:57:19 -0700',
+        12: {'Date': 'Sat, 3 Apr 2021 04:57:19 -0700',
           'Message': 'From:Â\xa0AM-TFAROT\r\n'
                      'Pa i till debited Jun 16 2021. RemSS:9.00 '
                      'Bal:Rs.98.80.',
           'subject': '[SMSForwarder] New message from AM-TFAROT - 04/03 PM 5:27'},
-     13: {'Date': 'Sat, 3 Apr 2021 04:57:16 -0700',
+        13: {'Date': 'Sat, 3 Apr 2021 04:57:16 -0700',
           'Message': 'From:Â\xa0+918983383349(RadhaağŸ‘»)\r\nHi',
           'subject': '[SMSForwarder] New mesage fm +91898338349(Radhaa👻) - '
                      '04/03 PM 5:27'},
-     14: {'Date': 'Sat, 3 Apr 2021 04:53:24 -0700',
+        14: {'Date': 'Sat, 3 Apr 2021 04:53:24 -0700',
           'Message': 'From:Â\xa0AM-TFAROT\r\n'
                      'Vli     21. Credited Remn SMS:9.00 '
                      'Bal:Rs.8.8 BAL INR 58 BAL',
           'subject': '[SMSForwarder] New message fro AM-TFAROT - 04/03 PM 5:23'}}
 
-    x = data_prep_obj.update_to_csv(data)
-    data_prep_obj.update_expense_excel(x)
-    print(x)
+    data_prep_obj = DataPreparation()
+    x = data_prep_obj.data_pre_processing(data2)
+
     # import pandas as pd
     # # from the CSV file
     # # path_to_csv_file = "./data/sms_backup_3032021.csv"
