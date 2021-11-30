@@ -31,6 +31,7 @@ class DataPreparation:
             now = datetime.now()
             # try:
             # after update
+            print("Format: "+(date_time+" "+str(now.year)))
             date_time = datetime.strptime(date_time+" "+str(now.year), '%d/%m, %I:%M %p %Y').strftime('%d %b %Y %I:%M')
             # except:
                 # before update, temp, to be remove in a few days
