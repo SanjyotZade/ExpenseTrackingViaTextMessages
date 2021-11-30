@@ -160,11 +160,8 @@ class DataPreparation:
     @staticmethod
     def find_trans_msg(x):
         x = x.lower()
-        print(x)
         keywords = ["credited", "debited", "refund",  "txn", "transaction", "tx#", "payment"] #"sbi", "icici", "hdfc", "balance", "bal"
         x = [key for word in x.split() for key in keywords if word.find(key)>=0]
-        print(x)
-        print()
         if x:
             return x
         else:
