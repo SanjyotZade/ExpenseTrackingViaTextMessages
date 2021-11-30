@@ -1,11 +1,10 @@
-import os
-import sys
 import socket
+import warnings
 from time import sleep
 from subprocess import call
-from config import MAX_NET_WAIT
 from config import REMOTE_SERVER
 from emailDataProcurement import EmailDataProcurement
+warnings.filterwarnings("ignore")
 
 
 def is_connected(hostname):
