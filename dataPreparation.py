@@ -22,6 +22,8 @@ class DataPreparation:
     @staticmethod
     def data_pre_processing(email_data):
         email_data_updated = {}
+        from pprint import pprint
+        pprint(email_data)
         for email_num, email_info in email_data.items():
             subject_info = email_info['subject']
             subject_info = subject_info.replace(CONSTANT_TEXT, "")
