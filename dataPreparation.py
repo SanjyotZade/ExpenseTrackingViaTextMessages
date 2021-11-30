@@ -31,10 +31,10 @@ class DataPreparation:
             now = datetime.now()
             try:
                 # after update
-                date_time = datetime.strptime(date_time+" "+str(now.year), '%m/%d, %I:%M %p %Y').strftime('%d %b %Y %I:%M')
+                date_time = datetime.strptime(date_time+" "+str(now.year), '%d/%m, %I:%M %p %Y').strftime('%d %b %Y %I:%M')
             except:
                 # before update, temp, to be remove in a few days
-                date_time = datetime.strptime(date_time+" "+str(now.year), '%m/%d %p %I:%M %Y').strftime('%d %b %Y %I:%M')
+                date_time = datetime.strptime(date_time+" "+str(now.year), '%d/%m %p %I:%M %Y').strftime('%d %b %Y %I:%M')
             email_data_updated[email_num] = {
                 'row_num': None,
                 'phoneNumber': sender_name,
